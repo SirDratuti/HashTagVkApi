@@ -1,3 +1,4 @@
-package ru.sirdratuti.hashtag
+package ru.sirdratuti.hashtag.network
 
-internal const val ACCESS_TOKEN = "vk1.a.QpjJjtIKVIeoDt9wl1uHY2vkyyo38f4tXOSnLbtE1yY35HH-3qCaMCNX-Eg5QKfXE23LfjuRazu-NBhR6ZotxSd0YXQaSq9NVid-XttxjcjXxF0rMee3WlUIMLVbF80MbVXnE-Z3Gja01Rl8Wly0RBWjSJ_emKKurNOiR5desF8IVNB5HbAYa43-f-UKz0iO"
+internal const val ACCESS_TOKEN =
+    "vk1.a.QpjJjtIKVIeoDt9wl1uHY2vkyyo38f4tXOSnLbtE1yY35HH-3qCaMCNX-Eg5QKfXE23LfjuRazu-NBhR6ZotxSd0YXQaSq9NVid-XttxjcjXxF0rMee3WlUIMLVbF80MbVXnE-Z3Gja01Rl8Wly0RBWjSJ_emKKurNOiR5desF8IVNB5HbAYa43-f-UKz0iO"

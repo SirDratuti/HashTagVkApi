@@ -17,4 +17,4 @@ internal fun PostsResponse.mapToHoursBefore() =
 private fun resolveHoursBefore(postDate: Long) =
     (TimeCache.currentTime - postDate) / SECONDS_TO_HOURS + 1
 
-private const val SECONDS_TO_HOURS = 3600
+internal const val SECONDS_TO_HOURS = 3600

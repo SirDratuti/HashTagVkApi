@@ -1,7 +1,10 @@
 import ru.sirdratuti.hashtag.interactor.NewsFeedInteractor
+import ru.sirdratuti.hashtag.network.api.service
 
 fun main() {
-    val interactor = NewsFeedInteractor()
+    val interactor = NewsFeedInteractor(
+        service = service
+    )
 
     val response = interactor.getPosts(
         queryString = "New year",

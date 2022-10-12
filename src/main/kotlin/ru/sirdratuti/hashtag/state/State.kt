@@ -1,4 +1,4 @@
-package ru.sirdratuti.hashtag.network
+package ru.sirdratuti.hashtag.state
 
 internal sealed class ResponseState {
     data class Success<T>(val value: T) : ResponseState()
