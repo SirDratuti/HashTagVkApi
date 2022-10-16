@@ -10,7 +10,7 @@ internal fun hoursBeforeToUnix(
 internal fun PostsResponse.mapToHoursBefore() =
     response.posts.map {
         ResolvedPost(
-            hoursBefore = resolveHoursBefore(it.date).toInt()
+            hoursBefore = resolveHoursBefore(it.date).toInt(),
         )
     }
 

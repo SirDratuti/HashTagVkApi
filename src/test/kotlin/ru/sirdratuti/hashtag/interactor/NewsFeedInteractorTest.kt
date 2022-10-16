@@ -6,6 +6,7 @@ import io.mockk.impl.annotations.MockK
 import okhttp3.MediaType
 import okhttp3.ResponseBody
 import org.junit.jupiter.api.Test
+import retrofit2.Call
 import retrofit2.Response
 import ru.sirdratuti.hashtag.network.api.VKApi
 import ru.sirdratuti.hashtag.network.data.Post
@@ -21,6 +22,9 @@ class NewsFeedInteractorTest {
 
     @MockK
     lateinit var api: VKApi
+
+    @MockK
+    lateinit var call: Call<PostsResponse>
 
     @BeforeTest
     fun initMocks() {
@@ -56,16 +60,17 @@ class NewsFeedInteractorTest {
 
         assertEquals(
             expected = true,
-            actual = state is ResponseState.Success<*>
+            actual = state is ResponseState.Success
         )
 
         assertEquals(
             expected = SUCCESS_RESPONSE_CONTENT.mapToHoursBefore(),
-            actual = (state as? ResponseState.Success<*>)?.value
+            actual = (state as? ResponseState.Success)?.value
         )
     }
 
     private fun mockInteractor(response: Response<PostsResponse>) {
+        every { call.execute() } returns response
         every {
             api.getNewsFeed(
                 queryString = QUERY,
@@ -74,7 +79,7 @@ class NewsFeedInteractorTest {
                 startTime = any(),
                 count = any(),
             )
-        } returns response
+        } returns call
     }
 
     private fun newsFeedInteractor() =
