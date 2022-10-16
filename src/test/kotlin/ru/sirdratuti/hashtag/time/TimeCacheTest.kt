@@ -3,7 +3,7 @@ package ru.sirdratuti.hashtag.time
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
-class TimeCacheTest {
+internal class TimeCacheTest {
     @Test
     fun `should convert current time in seconds`() {
         val currentTime = TimeCache.currentTime

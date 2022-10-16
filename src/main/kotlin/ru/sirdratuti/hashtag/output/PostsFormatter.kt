@@ -5,7 +5,11 @@ import ru.sirdratuti.hashtag.state.ResponseState
 internal fun ResponseState.formPosts() = when (this) {
     is ResponseState.Success -> {
         val posts = value.groupBy { it.hoursBefore }.values.map { it.size }
-        buildString { posts.forEachIndexed(::resolveString) }
+        buildString {
+            posts.forEachIndexed { index, value ->
+                append(resolveString(index, value))
+            }
+        }
     }
 
     is ResponseState.Failure -> {

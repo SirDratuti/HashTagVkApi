@@ -3,7 +3,7 @@ package ru.sirdratuti.hashtag.time
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
-class TimeTest {
+internal class TimeTest {
     @Test
     fun `should correctly convert time to Unix`() {
         val hoursBeforeRange = 1..24

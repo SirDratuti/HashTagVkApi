@@ -18,7 +18,7 @@ import ru.sirdratuti.hashtag.time.mapToHoursBefore
 import kotlin.test.BeforeTest
 import kotlin.test.assertEquals
 
-class NewsFeedInteractorTest {
+internal class NewsFeedInteractorTest {
 
     @MockK
     lateinit var api: VKApi
@@ -33,9 +33,9 @@ class NewsFeedInteractorTest {
 
     @Test
     fun `should get error state if response contains errors`() {
-        mockInteractor(errorResponse())
+        mockInteractor { errorResponse }
 
-        val state = newsFeedInteractor().getPosts(
+        val state = newsFeedInteractor.getPosts(
             queryString = QUERY,
         )
 
@@ -52,9 +52,9 @@ class NewsFeedInteractorTest {
 
     @Test
     fun `should get success state if response doesn't containt errors`() {
-        mockInteractor(successResponse())
+        mockInteractor { successResponse }
 
-        val state = newsFeedInteractor().getPosts(
+        val state = newsFeedInteractor.getPosts(
             queryString = QUERY
         )
 
@@ -69,8 +69,24 @@ class NewsFeedInteractorTest {
         )
     }
 
-    private fun mockInteractor(response: Response<PostsResponse>) {
-        every { call.execute() } returns response
+    private val newsFeedInteractor: NewsFeedInteractor
+        get() = NewsFeedInteractor(api)
+
+    private val errorResponse: Response<PostsResponse> = Response.error(
+        ERROR_CODE,
+        ResponseBody.create(
+            MediaType.parse(MEDIA_TYPE),
+            ERROR_RESPONSE_CONTENT
+        )
+    )
+
+    private val successResponse: Response<PostsResponse> = Response.success(
+        SUCCESS_CODE,
+        SUCCESS_RESPONSE_CONTENT,
+    )
+
+    private fun mockInteractor(response: () -> Response<PostsResponse>) {
+        every { call.execute() } returns response.invoke()
         every {
             api.getNewsFeed(
                 queryString = QUERY,
@@ -82,29 +98,13 @@ class NewsFeedInteractorTest {
         } returns call
     }
 
-    private fun newsFeedInteractor() =
-        NewsFeedInteractor(api)
-
-    private fun errorResponse(): Response<PostsResponse> = Response.error(
-        ERROR_CODE,
-        ResponseBody.create(
-            MediaType.parse(MEDIA_TYPE),
-            ERROR_RESPONSE_CONTENT
-        )
-    )
-
-    private fun successResponse(): Response<PostsResponse> = Response.success(
-        SUCCESS_CODE,
-        SUCCESS_RESPONSE_CONTENT,
-    )
-
     private companion object {
         private const val QUERY = "QUERY"
-
         private const val ERROR_CODE = 404
         private const val SUCCESS_CODE = 200
         private const val MEDIA_TYPE = "application/json"
         private const val ERROR_RESPONSE_CONTENT = "RESPONSE_CONTENT"
+
         private val SUCCESS_RESPONSE_CONTENT = PostsResponse(
             response = Posts(
                 posts = listOf(

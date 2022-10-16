@@ -6,7 +6,7 @@ import ru.sirdratuti.hashtag.state.ResponseState
 import ru.sirdratuti.hashtag.time.hoursBeforeToUnix
 import ru.sirdratuti.hashtag.time.mapToHoursBefore
 
-class NewsFeedInteractor(
+internal class NewsFeedInteractor(
     private val service: VKApi,
 ) {
     internal fun getPosts(

@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import ru.sirdratuti.hashtag.network.data.PostsResponse
 
-interface VKApi {
+internal interface VKApi {
     @GET(NEWSFEED)
     fun getNewsFeed(
         @Query("q") queryString: String,
